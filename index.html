@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Baseball Game</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row controls">
+        <h1 class="text-center">Baseball Game</h1>
+        <div class="small-12 columns text-center">
+            <img class="visual" src="https://octodex.github.com/images/dinotocat.png" />
+            <h2>숫자야구란 감춰진 3개의 숫자가 무엇인지 맞추는 게임입니다.</h2>
+            <ol>
+                <li>3자리 숫자와 위치가 모두 맞아야 성공입니다.</li>
+                <li>숫자는 0~9까지 구성되어 있으며, 각 숫자는 한번씩만 사용 가능합니다</li>
+                <li>숫자와 자리의 위치가 맞으면 스트라이크(S), 숫자만 맞으면 볼(B) 입니다.</li>
+                <li>숫자가 하나도 맞지 않을 경우 아웃(OUT) 으로 표시됩니다.</li>
+            </ol>
+        </div>
+    </section>
+    <section class="row controls" v-if="!gameIsRunning">
+        <div class="small-12 columns">
+            <button id="start-game" @click="startGame">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <input type="text" id="playerValue" maxlength="5" class="form-control" value="1,2,3">
+            <button id="attack" @click="attack" @keyup.enter="attack">SUBMIT</button>
+            <p class="text-center">0부터 9까지 중복되지않게 따옴표(,)로 구분하여 입력하여주세요.</p>
+        </div>
+    </section>
+    <section class="row log" v-if="turns.length > 0">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="turn in turns"
+                    :class="{'out': turn.isOut, 'homerun': !turn.isOut}">
+                    {{ turn.text }}
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
